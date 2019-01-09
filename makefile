@@ -50,11 +50,6 @@ all: makefile code
 
 code: clearoutput $(target)
 
-makefile: ./package.des  iniFile_parse.prj
-	amake iniFile_parse.prj
-	@$(ECHO) rerun nmake
-	@exit 1
-
 clearoutput:
 	@$(ECHO) Compiling... > output
 
@@ -64,11 +59,11 @@ iniFile_parse_includedir=-I./.
 
 all_objs= $(iniFile_parse_obj) 
 all_libs= $(iniFile_parse_lib) 
-INCLUDEDIR= $(iniFile_parse_includedir) 
+INCLUDEDIR= ./
 
-./config.o: ./config.cpp $(iniFile_parse_include)  
+./config.o: ./config.cpp ./config.h 
 
-./iniFile_parse.o: ./iniFile_parse.cpp $(iniFile_parse_include)  
+./iniFile_parse.o: ./iniFile_parse.cpp ./config.h  
 
 
 
@@ -80,5 +75,4 @@ clean:
 	-$(DEL) $(iniFile_parse_obj)
 	-$(DEL) $(target)
 
-pump:  
 
